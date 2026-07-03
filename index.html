@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<!--
+  MAISON - נכסי יוקרה · scroll-cinematic showcase site (RTL Hebrew).
+  Built on the scroll-cinematic-site skill. The hero film (media/film.mp4 /
+  film_m.mp4) is scrubbed by scroll; captions crossfade per scene. The
+  "נכסים" section triggers a full-screen cinematic house-to-house transition.
+  NOTE: media/film*.mp4 are currently PLACEHOLDER clips - swap in the real
+  Higgsfield-generated villa film (see STORYBOARD.md) without touching markup.
+-->
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAISON - נכסי יוקרה · חוויית נדל״ן קולנועית</title>
+  <meta name="description" content="MAISON - נכסי יוקרה. חוויית נדל״ן קולנועית: נכנסים דרך הדלת, עוברים בין החדרים, ויוצאים לגינה עם בריכה. נכסי הפאר הנבחרים." />
+
+  <meta property="og:title" content="MAISON - נכסי יוקרה" />
+  <meta property="og:description" content="חוויית נדל״ן קולנועית. נכסי הפאר הנבחרים." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="media/poster1.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body id="top">
+
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="#top">
+      <span class="nav__brand-main">MAISON</span>
+      <span class="nav__brand-sub">נכסי יוקרה</span>
+    </a>
+    <nav class="nav__links" id="navLinks" aria-label="ניווט ראשי">
+      <a href="#film" data-link>הבית</a>
+      <a href="#properties" data-link>נכסים</a>
+      <a href="#about" data-link>אודות</a>
+      <a href="#contact" class="btn btn--gold" data-link>צור קשר</a>
+    </nav>
+    <button class="nav__toggle" id="navToggle" aria-label="תפריט" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- SCENE DOTS -->
+  <nav class="dots" id="dots" aria-label="ניווט סצנות">
+    <a href="#film" data-scene="0" aria-label="סצנה 1"></a>
+    <a href="#film" data-scene="1" aria-label="סצנה 2"></a>
+    <a href="#film" data-scene="2" aria-label="סצנה 3"></a>
+    <a href="#film" data-scene="3" aria-label="סצנה 4"></a>
+    <a href="#film" data-scene="4" aria-label="סצנה 5"></a>
+    <a href="#film" data-scene="5" aria-label="סצנה 6"></a>
+    <a href="#film" data-scene="6" aria-label="סצנה 7"></a>
+  </nav>
+
+  <main>
+
+    <!-- THE FILM - one continuous villa walkthrough, scrubbed by scroll -->
+    <section class="film" id="film">
+      <div class="film__stage">
+        <video class="film__video" id="filmVideo" muted playsinline preload="auto"
+               data-src="media/film.mp4" data-src-m="media/film_m.mp4"
+               poster="media/poster1.jpg"></video>
+        <div class="film__scrim"></div>
+
+        <div class="caps">
+          <!-- 1 · חזית הוילה -->
+          <div class="cap cap--center is-active" data-scene="0">
+            <div class="cap__inner"><div class="cap__text">
+              <h1 class="hero__title">MAISON</h1>
+              <p class="hero__script">נכסי יוקרה</p>
+              <p class="hero__tagline">גלול פנימה, לתוך הבית.</p>
+              <a class="btn btn--gold" href="#properties" data-link>לצפייה בנכסים</a>
+            </div></div>
+          </div>
+          <!-- 2 · כניסה דרך הדלת -->
+          <div class="cap cap--start" data-scene="1">
+            <div class="cap__inner"><div class="cap__text">
+              <p class="eyebrow">הכניסה</p>
+              <h2 class="scene__title">מעבר הסף</h2>
+              <p class="scene__body">מעבר לדלת עץ האלון מתחיל עולם אחר. לובי שנפתח לגובה,
+                שיש שמלטף את האור, ושקט של בית שנבנה בלי פשרות.</p>
+            </div></div>
+          </div>
+          <!-- 3 · סלון -->
+          <div class="cap cap--end" data-scene="2">
+            <div class="cap__inner"><div class="cap__text">
+              <p class="eyebrow">הסלון</p>
+              <h2 class="scene__title">חלל שנושם אור</h2>
+              <p class="scene__body">חלונות מהרצפה עד התקרה, תקרה כפולת-גובה, ואור זהוב
+                של שקיעה שממלא את החדר. כאן מארחים, כאן חיים.</p>
+            </div></div>
+          </div>
+          <!-- 4 · מטבח / חדר שני -->
+          <div class="cap cap--start" data-scene="3">
+            <div class="cap__inner"><div class="cap__text">
+              <p class="eyebrow">לב הבית</p>
+              <h2 class="scene__title">כל פרט - כוונה</h2>
+              <p class="scene__body">מטבח שף עם אי שיש מפוסל, פינת אוכל שמזמינה להתעכב.
+                חומרים אמיתיים, גימור מושלם, שום דבר מקרי.</p>
+            </div></div>
+          </div>
+          <!-- 5 · יציאה לגינה -->
+          <div class="cap cap--end" data-scene="4">
+            <div class="cap__inner"><div class="cap__text">
+              <p class="eyebrow">החוץ</p>
+              <h2 class="scene__title">הגבול נעלם</h2>
+              <p class="scene__body">דלתות הזכוכית נפתחות, והפנים זולג אל הגינה. דשא ירוק,
+                עצים בוגרים, ושקיעה שנמשכת עד קצה המרפסת.</p>
+            </div></div>
+          </div>
+          <!-- 6 · הבריכה -->
+          <div class="cap cap--start" data-scene="5">
+            <div class="cap__inner"><div class="cap__text">
+              <p class="eyebrow">הגינה</p>
+              <h2 class="scene__title">יוקרה במים</h2>
+              <p class="scene__body">בריכת אינפיניטי שמשקפת שמיים כתומים. כאן נגמר היום
+                וכאן הוא מתחיל - במקום שמרגיש כמו חופשה קבועה.</p>
+            </div></div>
+          </div>
+          <!-- 7 · נחיתה / CTA -->
+          <div class="cap cap--center cap--cta" data-scene="6">
+            <div class="cap__inner"><div class="cap__text">
+              <p class="eyebrow">הבית הבא שלך</p>
+              <h2 class="scene__title scene__title--xl">מחכה לך</h2>
+              <div class="cta__actions">
+                <a class="btn btn--gold btn--lg" href="#properties" data-link>לגלריית הנכסים</a>
+                <a class="btn btn--ghost btn--lg" href="#contact" data-link>לתיאום סיור</a>
+              </div>
+            </div></div>
+          </div>
+        </div>
+
+        <a class="scroll-cue" id="scrollCue" href="#film" aria-label="גלול">
+          <span class="scroll-cue__label">גלול</span>
+          <span class="scroll-cue__line"></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- PROPERTIES - house-to-house cinematic transitions -->
+    <section class="properties" id="properties">
+      <div class="section-head">
+        <p class="eyebrow">הקולקציה</p>
+        <h2 class="section-title">עוברים מבית לבית</h2>
+        <p class="section-sub">בחר נכס - והמצלמה תיקח אותך פנימה.</p>
+      </div>
+
+      <div class="properties__grid">
+        <article class="estate" data-house="seaside"
+                 style="--thumb:url('../media/houses/seaside_1.jpg') center/cover no-repeat">
+          <div class="estate__media"><span class="estate__badge">וילת ים</span></div>
+          <div class="estate__body">
+            <h3>וילת הים · קיסריה</h3>
+            <p class="estate__meta">6 חד׳ · 420 מ״ר · קו ראשון לים</p>
+            <p class="estate__price">₪ 24,900,000</p>
+            <button class="btn btn--gold estate__enter" type="button">כניסה לבית ↵</button>
+          </div>
+        </article>
+
+        <article class="estate" data-house="penthouse"
+                 style="--thumb:url('../media/houses/penthouse_1.jpg') center/cover no-repeat">
+          <div class="estate__media"><span class="estate__badge">פנטהאוז</span></div>
+          <div class="estate__body">
+            <h3>פנטהאוז השמיים · תל אביב</h3>
+            <p class="estate__meta">5 חד׳ · 310 מ״ר · מרפסת גג + בריכה פרטית</p>
+            <p class="estate__price">₪ 31,500,000</p>
+            <button class="btn btn--gold estate__enter" type="button">כניסה לבית ↵</button>
+          </div>
+        </article>
+
+        <article class="estate" data-house="manor"
+                 style="--thumb:url('../media/houses/manor_1.jpg') center/cover no-repeat">
+          <div class="estate__media"><span class="estate__badge">אחוזה</span></div>
+          <div class="estate__body">
+            <h3>אחוזת הכרמים · רמת השרון</h3>
+            <p class="estate__meta">8 חד׳ · 640 מ״ר · מגרש דונם + בריכה</p>
+            <p class="estate__price">₪ 42,000,000</p>
+            <button class="btn btn--gold estate__enter" type="button">כניסה לבית ↵</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <div class="about__inner">
+        <div class="about__portrait" aria-hidden="true">
+          <div class="about__portrait-inner">DL</div>
+        </div>
+        <div class="about__info">
+          <p class="eyebrow">האיש מאחורי המפתחות</p>
+          <h2 class="section-title">דניאל לוי</h2>
+          <p class="about__lead">15 שנה של נכסי יוקרה, למעלה מ-1.2 מיליארד ₪ בעסקאות,
+            ורשימת המתנה של קונים שמחפשים בדיוק בית אחד - הבית הנכון.</p>
+          <p class="about__body">ב-MAISON אנחנו לא מוכרים דירות. אנחנו מלווים אנשים אל
+            הרגע שבו הם פותחים דלת ויודעים שהגיעו הביתה. ליווי דיסקרטי, אישי, מקצה לקצה.</p>
+          <ul class="stats">
+            <li><span class="stats__num">1.2B₪</span><span class="stats__label">היקף עסקאות</span></li>
+            <li><span class="stats__num">15</span><span class="stats__label">שנות ניסיון</span></li>
+            <li><span class="stats__num">98%</span><span class="stats__label">לקוחות ממליצים</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+      <div class="contact__inner">
+        <div class="contact__info">
+          <p class="eyebrow">בואו נדבר</p>
+          <h2 class="section-title">תיאום סיור פרטי</h2>
+          <p class="contact__lead">כל סיור הוא אישי ודיסקרטי. השאירו פרטים ואחזור אליכם
+            תוך שעות, או פשוט התקשרו.</p>
+
+          <div class="contact__block">
+            <h3>טלפון</h3>
+            <p><a href="tel:+972500000000">050-000-0000</a></p>
+          </div>
+          <div class="contact__block">
+            <h3>וואטסאפ</h3>
+            <p><a href="https://wa.me/972500000000" target="_blank" rel="noopener">שלחו הודעה ←</a></p>
+          </div>
+          <div class="contact__block">
+            <h3>אימייל</h3>
+            <p><a href="mailto:hello@maison.co.il">hello@maison.co.il</a></p>
+          </div>
+        </div>
+
+        <form class="contact__form" id="contactForm" novalidate>
+          <div class="field">
+            <label for="cf-name">שם מלא</label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="cf-phone">טלפון</label>
+            <input id="cf-phone" name="phone" type="tel" autocomplete="tel" required />
+          </div>
+          <div class="field">
+            <label for="cf-interest">מתעניין ב…</label>
+            <select id="cf-interest" name="interest">
+              <option>וילת הים · קיסריה</option>
+              <option>פנטהאוז השמיים · תל אביב</option>
+              <option>אחוזת הכרמים · רמת השרון</option>
+              <option>נכס אחר / לא בטוח עדיין</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="cf-msg">הודעה (אופציונלי)</label>
+            <textarea id="cf-msg" name="message" rows="3"></textarea>
+          </div>
+          <button class="btn btn--gold btn--lg" type="submit">שליחת פנייה</button>
+          <p class="form__note">* אתר תצוגה - הטופס אינו שולח נתונים אמיתיים.</p>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer__brand">
+        <span class="footer__main">MAISON</span>
+        <span class="footer__sub">נכסי יוקרה · ישראל</span>
+      </div>
+      <nav class="footer__links" aria-label="ניווט תחתון">
+        <a href="#top" data-link>למעלה</a>
+        <a href="#properties" data-link>נכסים</a>
+        <a href="#about" data-link>אודות</a>
+        <a href="#contact" data-link>צור קשר</a>
+      </nav>
+      <p class="footer__legal">© 2026 MAISON נכסי יוקרה · אתר תצוגה לצורכי הדגמה בלבד.</p>
+    </footer>
+
+  </main>
+
+  <!-- HOUSE-TO-HOUSE cinematic transition overlay -->
+  <div class="house" id="house" aria-hidden="true" role="dialog" aria-modal="true" aria-label="סיור בבית">
+    <div class="house__stage" id="houseStage"></div>
+    <div class="house__scrim"></div>
+    <div class="house__warp" id="houseWarp"></div>
+    <button class="house__close" id="houseClose" type="button" aria-label="סגירה">✕</button>
+    <div class="house__caption" id="houseCaption">
+      <p class="eyebrow" id="houseEyebrow">נכנסים לבית</p>
+      <h2 class="scene__title" id="houseTitle">-</h2>
+      <p class="scene__body" id="houseBody">-</p>
+      <a class="btn btn--gold" id="houseCta" href="#contact">לתיאום סיור בנכס זה</a>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
