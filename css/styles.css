@@ -359,9 +359,14 @@ img, video, iframe { display: block; max-width: 100%; }
 .section-sub { color: var(--ink-dim); margin-top: 0.8rem; }
 
 /* ---------- properties (house-to-house) ---------- */
+.section-rule {
+  display: block; width: 64px; height: 1px; margin: 1.5rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.section-head .section-sub { margin-top: 1.2rem; }
 .properties {
   background:
-    radial-gradient(120% 80% at 50% 0%, rgba(201,162,75,0.07), transparent 60%),
+    radial-gradient(120% 80% at 50% 0%, rgba(201,162,75,0.09), transparent 62%),
     var(--bg-2);
   padding: clamp(80px, 12vh, 150px) clamp(24px, 5vw, 64px);
   border-top: 1px solid var(--line);
@@ -371,61 +376,88 @@ img, video, iframe { display: block; max-width: 100%; }
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  gap: 26px;
 }
 .estate {
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012));
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  cursor: pointer;
+  transition: transform 0.5s var(--ease), border-color 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+.estate::after {
+  content: ""; position: absolute; inset: 0; z-index: 4; border-radius: 14px;
+  box-shadow: inset 0 0 0 1px rgba(201,162,75,0);
+  transition: box-shadow 0.5s var(--ease); pointer-events: none;
 }
 .estate:hover {
-  transform: translateY(-6px);
-  border-color: rgba(201, 162, 75, 0.55);
-  box-shadow: 0 22px 50px rgba(0,0,0,0.5);
+  transform: translateY(-8px);
+  border-color: rgba(201,162,75,0.5);
+  box-shadow: 0 30px 64px rgba(0,0,0,0.55);
 }
-.estate__media {
-  position: relative;
-  aspect-ratio: 16 / 11;
-  background: var(--thumb, #222);
-  display: flex;
-  align-items: flex-end;
-  padding: 16px;
+.estate:hover::after { box-shadow: inset 0 0 0 1px rgba(201,162,75,0.6); }
+
+.estate__media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+.estate__img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--ease), filter 0.6s var(--ease);
 }
+.estate:hover .estate__img { transform: scale(1.07); filter: saturate(1.08) brightness(1.03); }
 .estate__media::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: radial-gradient(120% 100% at 70% 0%, rgba(255,255,255,0.14), transparent 55%);
-  pointer-events: none;
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(15,11,6,0.30) 0%, transparent 28%, transparent 58%, rgba(15,11,6,0.58) 100%);
+}
+.estate__index {
+  position: absolute; top: 12px; right: 18px; z-index: 2;
+  font-family: var(--display); font-weight: 500; font-size: 2.4rem; line-height: 1;
+  color: rgba(246,239,225,0.92); text-shadow: 0 2px 16px rgba(0,0,0,0.6);
 }
 .estate__badge {
-  font-family: var(--body);
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  color: var(--ink);
-  background: rgba(20,16,11,0.55);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 6px 14px;
-  backdrop-filter: blur(6px);
+  position: absolute; bottom: 14px; right: 16px; z-index: 2;
+  font-family: var(--body); font-size: 0.7rem; letter-spacing: 0.2em; color: var(--ink);
+  background: rgba(20,16,11,0.5); border: 1px solid rgba(246,239,225,0.18);
+  border-radius: 999px; padding: 6px 15px; backdrop-filter: blur(6px);
 }
-.estate__body { padding: 22px 22px 26px; }
-.estate__body h3 {
-  font-family: var(--heb);
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin-bottom: 0.4rem;
+.estate__hover {
+  position: absolute; inset: 0; z-index: 3; display: flex; align-items: center; justify-content: center;
+  background: rgba(15,11,6,0.34); opacity: 0; transition: opacity 0.5s var(--ease);
 }
-.estate__meta { color: var(--ink-dim); font-size: 0.95rem; }
-.estate__price {
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: 1.5rem;
-  color: var(--gold-2);
-  margin: 0.7rem 0 1.2rem;
+.estate:hover .estate__hover { opacity: 1; }
+.estate__hover-txt {
+  font-family: var(--body); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.24em; color: var(--gold-2);
+  border: 1px solid rgba(228,198,126,0.7); border-radius: 999px; padding: 13px 28px;
+  background: rgba(20,16,11,0.4); backdrop-filter: blur(4px);
+  transform: translateY(10px); transition: transform 0.5s var(--ease);
 }
-.estate__enter { width: 100%; }
+.estate:hover .estate__hover-txt { transform: none; }
+
+.estate__body { padding: 24px 24px 26px; }
+.estate__loc { font-size: 0.74rem; letter-spacing: 0.14em; color: var(--gold); margin-bottom: 0.5rem; }
+.estate__title { font-family: var(--heb); font-weight: 700; font-size: 1.7rem; line-height: 1.12; margin-bottom: 0.9rem; }
+.estate__specs {
+  list-style: none; display: flex; flex-wrap: wrap; gap: 0 0.7rem;
+  color: var(--ink-dim); font-size: 0.9rem; margin-bottom: 1.3rem;
+}
+.estate__specs li { position: relative; padding-inline-start: 0.85rem; }
+.estate__specs li::before { content: "•"; position: absolute; inset-inline-start: 0; color: var(--gold); }
+.estate__specs li:first-child { padding-inline-start: 0; }
+.estate__specs li:first-child::before { content: none; }
+.estate__foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-top: 1.1rem; border-top: 1px solid var(--line);
+}
+.estate__price { font-family: var(--display); font-weight: 600; font-size: 1.55rem; color: var(--gold-2); white-space: nowrap; }
+.estate__enter {
+  display: inline-flex; align-items: center; gap: 0.5em; background: none; border: 0; cursor: pointer;
+  font-family: var(--body); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.03em; color: var(--ink);
+  padding: 6px 2px; transition: color 0.3s var(--ease), gap 0.3s var(--ease);
+}
+.estate__enter span { color: var(--gold); display: inline-block; transition: transform 0.3s var(--ease); }
+.estate__enter:hover { color: var(--gold-2); gap: 0.8em; }
+.estate__enter:hover span { transform: translateX(-4px); }
 
 /* ---------- about ---------- */
 .about {
@@ -598,8 +630,8 @@ img, video, iframe { display: block; max-width: 100%; }
   transition: opacity 1.2s var(--ease);
   will-change: opacity, transform;
 }
-.house__img.is-shown { opacity: 1; animation: kenburns 4.6s ease-out forwards; }
-@keyframes kenburns { from { transform: scale(1.04); } to { transform: scale(1.14); } }
+.house__img.is-shown { opacity: 1; animation: kenburns 6.5s ease-out forwards; }
+@keyframes kenburns { from { transform: scale(1.05); } to { transform: scale(1.13); } }
 
 /* the "warp" - a fast zoom/blur flash that sells the fly-into-the-house */
 .house__warp {
@@ -623,20 +655,82 @@ img, video, iframe { display: block; max-width: 100%; }
 .house__scrim {
   position: absolute; inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(15,11,6,0.5), rgba(15,11,6,0.15) 40%, rgba(15,11,6,0.9));
+  background:
+    radial-gradient(120% 90% at 80% 90%, rgba(15,11,6,0.65), transparent 55%),
+    linear-gradient(180deg, rgba(15,11,6,0.55), rgba(15,11,6,0.08) 38%, rgba(15,11,6,0.4) 70%, rgba(15,11,6,0.92) 100%);
 }
 .house__caption {
   position: absolute;
-  bottom: clamp(48px, 9vh, 110px);
-  right: clamp(24px, 6vw, 90px);
-  max-width: 560px;
-  z-index: 2;
+  bottom: clamp(56px, 10vh, 120px);
+  right: clamp(24px, 6vw, 96px);
+  max-width: 620px;
+  z-index: 3;
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s var(--ease) 0.55s, transform 0.6s var(--ease) 0.55s;
+  transform: translateY(26px);
+  transition: opacity 0.7s var(--ease) 0.55s, transform 0.7s var(--ease) 0.55s;
 }
 .house.is-open .house__caption { opacity: 1; transform: none; }
-.house__caption .btn { margin-top: 1.4rem; }
+.house__caption .eyebrow { margin-bottom: 0.9rem; }
+.house__title {
+  font-family: var(--heb); font-weight: 700;
+  font-size: clamp(2.8rem, 7vw, 5.2rem); line-height: 1.02;
+  text-shadow: 0 2px 40px rgba(0,0,0,0.6);
+}
+.house__specs {
+  list-style: none; display: flex; flex-wrap: wrap; gap: 0.7rem 1rem;
+  margin: 1.2rem 0 0.4rem; color: var(--ink);
+  font-size: clamp(0.92rem, 1.4vw, 1.06rem);
+}
+.house__specs li { position: relative; padding-inline-start: 1.15rem; }
+.house__specs li::before {
+  content: ""; position: absolute; inset-inline-start: 0; top: 0.55em;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--gold);
+}
+.house__specs li:first-child { padding-inline-start: 0; }
+.house__specs li:first-child::before { content: none; }
+.house__body {
+  font-size: clamp(1rem, 1.4vw, 1.18rem); line-height: 1.65; color: var(--ink-dim);
+  max-width: 52ch; margin-top: 1rem; text-shadow: 0 1px 12px rgba(0,0,0,0.55);
+}
+.house__foot { display: flex; align-items: center; flex-wrap: wrap; gap: 1.2rem; margin-top: 1.8rem; }
+.house__price {
+  font-family: var(--display); font-weight: 600; font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  color: var(--gold-2); white-space: nowrap;
+}
+
+/* scene progress bars */
+.house__progress {
+  position: absolute; z-index: 3;
+  top: clamp(24px, 4vh, 40px); left: 50%; transform: translateX(-50%);
+  display: flex; gap: 10px;
+  opacity: 0; transition: opacity 0.6s var(--ease) 0.5s;
+}
+.house.is-open .house__progress { opacity: 1; }
+.house__progress i {
+  display: block; width: 46px; height: 3px; border-radius: 3px;
+  background: rgba(246,239,225,0.28); overflow: hidden; position: relative;
+}
+.house__progress i.is-active::after {
+  content: ""; position: absolute; inset: 0; transform-origin: right center;
+  background: var(--gold-2); animation: prog var(--tour, 3.5s) linear forwards;
+}
+.house__progress i.is-done::after { content: ""; position: absolute; inset: 0; background: var(--gold-2); }
+@keyframes prog { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* prev/next property navigation */
+.house__nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 3; width: 58px; height: 58px; border-radius: 50%;
+  border: 1px solid rgba(246,239,225,0.28); background: rgba(20,16,11,0.4);
+  color: var(--ink); font-size: 1.8rem; line-height: 1; cursor: pointer;
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.5s var(--ease) 0.6s, background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.house.is-open .house__nav { opacity: 0.85; }
+.house__nav:hover { background: rgba(201,162,75,0.28); border-color: var(--gold-2); opacity: 1; }
+.house__nav--prev { right: clamp(16px, 3vw, 40px); }   /* RTL: prev on the right */
+.house__nav--next { left: clamp(16px, 3vw, 40px); }
 .house__close {
   position: absolute;
   top: clamp(18px, 3vh, 30px);

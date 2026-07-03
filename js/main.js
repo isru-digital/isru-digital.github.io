@@ -148,37 +148,65 @@
      ============================================================ */
   var HOUSES = {
     seaside: {
-      title: "וילת הים · קיסריה",
-      eyebrow: "טסים אל קו הים",
-      body: "קירות זכוכית מול הים, סלון שנפתח למרפסת אינסופית, ובריכה שממשיכה אל האופק. 6 חדרים, 420 מ״ר, פרטיות מוחלטת.",
+      eyebrow: "קיסריה · קו ראשון לים",
+      title: "וילת הים",
+      specs: ["6 חדרים", "420 מ״ר", "בריכת אינפיניטי"],
+      price: "₪ 24,900,000",
+      body: "קירות זכוכית מול הים, סלון שנפתח למרפסת אינסופית, ובריכה שממשיכה אל קו האופק. פרטיות מוחלטת מול הים התיכון.",
       thumb: "linear-gradient(160deg,#2a3d46,#0e1a20)",
       images: ["media/houses/seaside_1.jpg", "media/houses/seaside_2.jpg", "media/houses/seaside_3.jpg"]
     },
     penthouse: {
-      title: "פנטהאוז השמיים · תל אביב",
-      eyebrow: "עולים אל הגג",
-      body: "קומה שלמה מעל העיר, מרפסת גג עם בריכה פרטית וקו רקיע שלא נגמר. 5 חדרים, 310 מ״ר, נוף לכל הכיוונים.",
+      eyebrow: "תל אביב · קומת שמיים",
+      title: "פנטהאוז השמיים",
+      specs: ["5 חדרים", "310 מ״ר", "בריכה פרטית על הגג"],
+      price: "₪ 31,500,000",
+      body: "קומה שלמה מעל העיר, מרפסת גג עם בריכה פרטית, וקו רקיע שלא נגמר. נוף לכל הכיוונים, בכל שעה של היום.",
       thumb: "linear-gradient(160deg,#332536,#120b16)",
       images: ["media/houses/penthouse_1.jpg", "media/houses/penthouse_2.jpg", "media/houses/penthouse_3.jpg"]
     },
     manor: {
-      title: "אחוזת הכרמים · רמת השרון",
-      eyebrow: "נכנסים דרך שער האבן",
-      body: "אחוזת אבן על מגרש דונם, כרמים פרטיים, חצר פנימית ובריכה בין העצים. 8 חדרים, 640 מ״ר של שקט.",
+      eyebrow: "רמת השרון · מגרש דונם",
+      title: "אחוזת הכרמים",
+      specs: ["8 חדרים", "640 מ״ר", "כרמים + בריכה"],
+      price: "₪ 42,000,000",
+      body: "אחוזת אבן על מגרש דונם, כרמים פרטיים, חצר פנימית ובריכה בין העצים. שקט של עולם אחר, דקות ספורות מהעיר.",
       thumb: "linear-gradient(160deg,#3a3325,#17130b)",
       images: ["media/houses/manor_1.jpg", "media/houses/manor_2.jpg", "media/houses/manor_3.jpg"]
     }
   };
+  var ORDER = ["seaside", "penthouse", "manor"];
+  var TOUR_MS = 3500;
 
   var houseEl    = document.getElementById("house");
   var houseStage = document.getElementById("houseStage");
   var houseWarp  = document.getElementById("houseWarp");
   var houseClose = document.getElementById("houseClose");
+  var housePrev  = document.getElementById("housePrev");
+  var houseNext  = document.getElementById("houseNext");
+  var houseProg  = document.getElementById("houseProgress");
   var hEyebrow   = document.getElementById("houseEyebrow");
   var hTitle     = document.getElementById("houseTitle");
+  var hSpecs     = document.getElementById("houseSpecs");
   var hBody      = document.getElementById("houseBody");
+  var hPrice     = document.getElementById("housePrice");
   var lastFocus  = null;
   var tourTimer  = null;
+  var currentId  = null;
+
+  var progBars = houseProg ? Array.prototype.slice.call(houseProg.querySelectorAll("i")) : [];
+  function setProgress(active, count) {
+    for (var j = 0; j < progBars.length; j++) {
+      var b = progBars[j];
+      b.style.display = j < count ? "" : "none";
+      b.classList.remove("is-active", "is-done");
+      if (j < active) b.classList.add("is-done");
+    }
+    if (progBars[active]) {
+      void progBars[active].offsetWidth; /* restart fill animation */
+      progBars[active].classList.add("is-active");
+    }
+  }
 
   /* cross-fading image mini-tour ("fly through the house") */
   function stopTour() { if (tourTimer) { clearInterval(tourTimer); tourTimer = null; } }
@@ -186,40 +214,48 @@
     stopTour();
     houseStage.innerHTML = "";
     houseStage.style.background = "";
+    if (houseProg) houseProg.style.setProperty("--tour", (TOUR_MS / 1000) + "s");
     var imgs = images.map(function (src) {
       var im = document.createElement("img");
       im.className = "house__img";
-      im.src = src;
-      im.alt = "";
+      im.src = src; im.alt = "";
       houseStage.appendChild(im);
       return im;
     });
     if (!imgs.length) return;
     var idx = 0;
     imgs[0].classList.add("is-shown");
+    setProgress(0, imgs.length);
     if (imgs.length < 2 || prefersReduced) return;
     tourTimer = setInterval(function () {
       imgs[idx].classList.remove("is-shown");
       idx = (idx + 1) % imgs.length;
       imgs[idx].classList.add("is-shown");
-    }, 3500);
+      setProgress(idx, imgs.length);
+    }, TOUR_MS);
   }
 
-  function openHouse(id) {
+  function openHouse(id, keepFocus) {
     var h = HOUSES[id];
     if (!h || !houseEl) return;
-    lastFocus = document.activeElement;
+    if (!currentId) lastFocus = document.activeElement;
+    currentId = id;
 
     hEyebrow.textContent = h.eyebrow;
     hTitle.textContent   = h.title;
     hBody.textContent    = h.body;
+    hPrice.textContent   = h.price || "";
+    hSpecs.innerHTML = "";
+    (h.specs || []).forEach(function (s) {
+      var li = document.createElement("li"); li.textContent = s; hSpecs.appendChild(li);
+    });
+
     houseEl.style.background = "#000";
     houseWarp.style.setProperty("--warp-thumb", h.thumb);
 
     if (h.images && h.images.length) {
       startTour(h.images);
     } else {
-      /* colored fallback until this house's real images are added */
       stopTour();
       houseStage.innerHTML = "";
       houseStage.style.background = h.thumb;
@@ -228,13 +264,19 @@
     houseEl.classList.add("is-open");
     if (!prefersReduced) {
       houseEl.classList.remove("is-warping");
-      /* force reflow to restart the warp animation each open */
-      void houseEl.offsetWidth;
+      void houseEl.offsetWidth; /* restart warp on each open/switch */
       houseEl.classList.add("is-warping");
     }
     houseEl.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
-    houseClose.focus();
+    if (!keepFocus) houseClose.focus();
+  }
+
+  function stepHouse(dir) {
+    if (!currentId) return;
+    var i = ORDER.indexOf(currentId);
+    var next = ORDER[(i + dir + ORDER.length) % ORDER.length];
+    openHouse(next, true);
   }
 
   function closeHouse() {
@@ -243,6 +285,7 @@
     houseEl.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
     stopTour();
+    currentId = null;
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
@@ -253,8 +296,13 @@
     card.addEventListener("click", function () { openHouse(id); });
   });
   if (houseClose) houseClose.addEventListener("click", closeHouse);
+  if (housePrev) housePrev.addEventListener("click", function (e) { e.stopPropagation(); stepHouse(-1); });
+  if (houseNext) houseNext.addEventListener("click", function (e) { e.stopPropagation(); stepHouse(1); });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && houseEl && houseEl.classList.contains("is-open")) closeHouse();
+    if (!houseEl || !houseEl.classList.contains("is-open")) return;
+    if (e.key === "Escape") closeHouse();
+    else if (e.key === "ArrowLeft") stepHouse(1);   /* RTL: left = next */
+    else if (e.key === "ArrowRight") stepHouse(-1);
   });
 
   /* ---------- contact form (showcase only) ---------- */

@@ -145,42 +145,64 @@
     <!-- PROPERTIES - house-to-house cinematic transitions -->
     <section class="properties" id="properties">
       <div class="section-head">
-        <p class="eyebrow">הקולקציה</p>
+        <p class="eyebrow">הקולקציה הפרטית</p>
         <h2 class="section-title">עוברים מבית לבית</h2>
-        <p class="section-sub">בחר נכס - והמצלמה תיקח אותך פנימה.</p>
+        <span class="section-rule" aria-hidden="true"></span>
+        <p class="section-sub">בחרו נכס, והמצלמה תיקח אתכם פנימה - סיור קולנועי בכל בית.</p>
       </div>
 
       <div class="properties__grid">
-        <article class="estate" data-house="seaside"
-                 style="--thumb:url('../media/houses/seaside_1.jpg') center/cover no-repeat">
-          <div class="estate__media"><span class="estate__badge">וילת ים</span></div>
+        <article class="estate" data-house="seaside">
+          <div class="estate__media">
+            <img class="estate__img" src="media/houses/seaside_1.jpg" alt="וילת הים בקיסריה" loading="lazy" />
+            <span class="estate__index">01</span>
+            <span class="estate__badge">וילת ים</span>
+            <span class="estate__hover"><span class="estate__hover-txt">כניסה לבית</span></span>
+          </div>
           <div class="estate__body">
-            <h3>וילת הים · קיסריה</h3>
-            <p class="estate__meta">6 חד׳ · 420 מ״ר · קו ראשון לים</p>
-            <p class="estate__price">₪ 24,900,000</p>
-            <button class="btn btn--gold estate__enter" type="button">כניסה לבית ↵</button>
+            <p class="estate__loc">קיסריה · קו ראשון לים</p>
+            <h3 class="estate__title">וילת הים</h3>
+            <ul class="estate__specs"><li>6 חדרים</li><li>420 מ״ר</li><li>בריכת אינפיניטי</li></ul>
+            <div class="estate__foot">
+              <span class="estate__price">₪ 24,900,000</span>
+              <button class="estate__enter" type="button" aria-label="כניסה לבית">כניסה לבית <span aria-hidden="true">←</span></button>
+            </div>
           </div>
         </article>
 
-        <article class="estate" data-house="penthouse"
-                 style="--thumb:url('../media/houses/penthouse_1.jpg') center/cover no-repeat">
-          <div class="estate__media"><span class="estate__badge">פנטהאוז</span></div>
+        <article class="estate" data-house="penthouse">
+          <div class="estate__media">
+            <img class="estate__img" src="media/houses/penthouse_1.jpg" alt="פנטהאוז בתל אביב" loading="lazy" />
+            <span class="estate__index">02</span>
+            <span class="estate__badge">פנטהאוז</span>
+            <span class="estate__hover"><span class="estate__hover-txt">כניסה לבית</span></span>
+          </div>
           <div class="estate__body">
-            <h3>פנטהאוז השמיים · תל אביב</h3>
-            <p class="estate__meta">5 חד׳ · 310 מ״ר · מרפסת גג + בריכה פרטית</p>
-            <p class="estate__price">₪ 31,500,000</p>
-            <button class="btn btn--gold estate__enter" type="button">כניסה לבית ↵</button>
+            <p class="estate__loc">תל אביב · קומת שמיים</p>
+            <h3 class="estate__title">פנטהאוז השמיים</h3>
+            <ul class="estate__specs"><li>5 חדרים</li><li>310 מ״ר</li><li>בריכה פרטית על הגג</li></ul>
+            <div class="estate__foot">
+              <span class="estate__price">₪ 31,500,000</span>
+              <button class="estate__enter" type="button" aria-label="כניסה לבית">כניסה לבית <span aria-hidden="true">←</span></button>
+            </div>
           </div>
         </article>
 
-        <article class="estate" data-house="manor"
-                 style="--thumb:url('../media/houses/manor_1.jpg') center/cover no-repeat">
-          <div class="estate__media"><span class="estate__badge">אחוזה</span></div>
+        <article class="estate" data-house="manor">
+          <div class="estate__media">
+            <img class="estate__img" src="media/houses/manor_1.jpg" alt="אחוזת הכרמים ברמת השרון" loading="lazy" />
+            <span class="estate__index">03</span>
+            <span class="estate__badge">אחוזה</span>
+            <span class="estate__hover"><span class="estate__hover-txt">כניסה לבית</span></span>
+          </div>
           <div class="estate__body">
-            <h3>אחוזת הכרמים · רמת השרון</h3>
-            <p class="estate__meta">8 חד׳ · 640 מ״ר · מגרש דונם + בריכה</p>
-            <p class="estate__price">₪ 42,000,000</p>
-            <button class="btn btn--gold estate__enter" type="button">כניסה לבית ↵</button>
+            <p class="estate__loc">רמת השרון · מגרש דונם</p>
+            <h3 class="estate__title">אחוזת הכרמים</h3>
+            <ul class="estate__specs"><li>8 חדרים</li><li>640 מ״ר</li><li>כרמים + בריכה</li></ul>
+            <div class="estate__foot">
+              <span class="estate__price">₪ 42,000,000</span>
+              <button class="estate__enter" type="button" aria-label="כניסה לבית">כניסה לבית <span aria-hidden="true">←</span></button>
+            </div>
           </div>
         </article>
       </div>
@@ -280,12 +302,22 @@
     <div class="house__stage" id="houseStage"></div>
     <div class="house__scrim"></div>
     <div class="house__warp" id="houseWarp"></div>
+
     <button class="house__close" id="houseClose" type="button" aria-label="סגירה">✕</button>
+    <button class="house__nav house__nav--prev" id="housePrev" type="button" aria-label="הנכס הקודם">‹</button>
+    <button class="house__nav house__nav--next" id="houseNext" type="button" aria-label="הנכס הבא">›</button>
+
+    <div class="house__progress" id="houseProgress" aria-hidden="true"><i></i><i></i><i></i></div>
+
     <div class="house__caption" id="houseCaption">
       <p class="eyebrow" id="houseEyebrow">נכנסים לבית</p>
-      <h2 class="scene__title" id="houseTitle">-</h2>
-      <p class="scene__body" id="houseBody">-</p>
-      <a class="btn btn--gold" id="houseCta" href="#contact">לתיאום סיור בנכס זה</a>
+      <h2 class="house__title" id="houseTitle">-</h2>
+      <ul class="house__specs" id="houseSpecs"></ul>
+      <p class="house__body" id="houseBody">-</p>
+      <div class="house__foot">
+        <span class="house__price" id="housePrice"></span>
+        <a class="btn btn--gold" id="houseCta" href="#contact">לתיאום סיור בנכס זה</a>
+      </div>
     </div>
   </div>
 
